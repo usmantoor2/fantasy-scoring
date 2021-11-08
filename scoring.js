@@ -34,17 +34,33 @@ const calculateRBScore = (player) => {
   return rushing.yards + rushing.touchdowns + rushing.fumbles
 }
 
-const calculateQBScore = (player) => { 
-  const score = (player.stats.passing.yards /25) + 
-  (player.stats.passing.touchdowns * 6) +
-  (player.stats.passing.interceptions * -3) + 
-  (player.stats.rushing.yards /10) +
-  (player.stats.rushing.touchdowns * 6) +
-  (player.stats.rushing.fumbles * -3)
+// calculate WR score for WR position
+const calculateWRScore = (player) => { 
+  (player.stats.rushing.yards / 10) + 
+  (player.stats.rushing.touchdowns * 6) + 
+  (player.stats.rushing.fumbles * -3) + 
+  (player.stats.receiving.yards / 10) +
+  (player.stats.receiving.touchdowns * 6) +
+  (player.stats.receiving.receptions) +
+  (player.stats.return.kickreturn.yards / 15 + 
+  (player.stats.return.kickreturn.touchdowns * 6) + 
+  (player.stats.return.kickreturn.fumbles * -3) + 
+  (player.stats.return.puntreturn.yards / 15) +
+  (player.stats.return.puntreturn.touchdowns * 6) + 
+  (player.stats.return.puntreturn.fumbles * -3) 
+  )  
+  return rushing.yards + rushing.touchdowns + rushing.fumbles +  receiving.yards + receiving.touchdowns + receiving.fumbles + receiving.receptions + kickreturn.yards + kickreturn.touchdowns + kickreturn.fumbles + puntreturn.yards + puntreturn.touchdowns + puntreturn.fumbles 
+}
 
-  return score
+// Calculate Tightend score for TE position
+const calculateTEScore = (player) => {
+    (player.stats.receiving.yards / 10) +
+    (player.stats.receiving.touchdowns * 6) + 
+    (player.stats.receiving.fumbles * -3) + 
+    (player.stats.receiving.receptions)
+  
+    return receiving.yards + receiving.touchdowns + receiving.fumbles + receiving.receptions
+
 }
 
 module.exports = calculateScore
-
-
